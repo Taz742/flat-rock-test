@@ -6,7 +6,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { IUser, Role } from "../../../contexts/users/interfaces/interfaces";
+import { IUser, Role } from "../../../contexts/users/interfaces";
 
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import MenuItem from "@material-ui/core/MenuItem";
