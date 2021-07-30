@@ -1,22 +1,25 @@
 [{
-    "name": "Tazo",
+    "id": 1,
+    "name": "Tazo1",
     "surname": "Leladze",
     "email": "taz742b@gmail.com",
     "role": "ADMIN",
     "isActive": true,
     "disabled": false
 }, {
-    "name": "Tazo",
+    "id": 2,
+    "name": "Tazo2",
     "surname": "Leladze",
     "email": "taz742b@gmail.com",
-    "role": "ADMIN",
-    "isActive": true,
+    "role": "USER",
+    "isActive": false,
     "disabled": false
 }, {
-    "name": "Tazo",
+    "id": 3,
+    "name": "Tazo3",
     "surname": "Leladze",
     "email": "taz742b@gmail.com",
-    "role": "ADMIN",
+    "role": "MODERATOR",
     "isActive": true,
-    "disabled": false
+    "disabled": true
 }]
