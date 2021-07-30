@@ -18,28 +18,8 @@ import useModal from "../../hooks/useModal";
 import { IUser } from "../../contexts/users/interfaces";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DeleteIcon from "@material-ui/icons/Delete";
-
-function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator<Key extends keyof any>(
-  order: Order,
-  orderBy: Key
-): (
-  a: { [key in Key]: number | string | boolean },
-  b: { [key in Key]: number | string | boolean }
-) => number {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
+import { capitalize } from "../../utils/helpers";
+import getComparator from './Comparator';
 
 export default function Users() {
   const [order, setOrder] = React.useState<Order>("asc");
@@ -86,8 +66,8 @@ export default function Users() {
               position: "absolute",
               top: 180,
               cursor: "pointer",
-              background: '#fff',
-              borderRadius: '50%'
+              background: "#fff",
+              borderRadius: "50%",
             }}
             onClick={() => openModal()}
           />
@@ -135,9 +115,10 @@ export default function Users() {
                                 marginLeft: `${
                                   row.role === "ADMIN" ? "10px" : "35px"
                                 } !important`,
+                                textTransform: "capitalize",
                               }}
                             >
-                              {String(row.role).toLocaleUpperCase()}
+                              {capitalize(String(row.role))}
                             </Typography>
                           </Box>
                         </TableCell>

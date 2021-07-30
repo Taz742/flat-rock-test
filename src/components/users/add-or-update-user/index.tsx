@@ -40,14 +40,14 @@ export default function AddOrUpdateUser(props: IProps) {
     handleSubmit,
   } = useForm<IFormInput>({
     defaultValues: user || {
-      role: 'ADMIN'
-    }
+      role: "ADMIN",
+    },
   });
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     handleAddOrUpdateUser({
       ...(user || {}),
-      ...data
+      ...data,
     });
     onClose();
   };
@@ -62,7 +62,7 @@ export default function AddOrUpdateUser(props: IProps) {
         fullWidth
         maxWidth={"sm"}
       >
-        <DialogTitle id="add-or-update-user">
+        <DialogTitle id="add-or-update-user" sx={{ marginBottom: '10px !important' }}>
           {user ? "Edit User" : "Add New User"}
         </DialogTitle>
         <DialogContent>
