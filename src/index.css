@@ -1,5 +1,13 @@
 body {
-    margin: 0;
-    padding: 0;
-    background: #f3f3f3;
+  margin: 0;
+  padding: 0;
+  background: #f3f3f3;
+}
+
+.css-1psng7p-MuiTablePagination-spacer {
+  flex: inherit !important;
+}
+
+.css-levciy-MuiTablePagination-displayedRows {
+  margin-left: auto !important;
 }
