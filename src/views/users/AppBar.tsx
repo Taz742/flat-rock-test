@@ -72,7 +72,7 @@ export default function SearchAppBar() {
             }}
           >
             <Typography
-              variant="h3"
+              variant="h4"
               noWrap
               component="div"
               sx={{
