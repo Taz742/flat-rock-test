@@ -21,7 +21,7 @@
     "email": "taz742b@gmail.com",
     "role": "MODERATOR",
     "isActive": true,
-    "disabled": true
+    "disabled": false
 },  {
     "id": 4,
     "name": "Tazo4",
@@ -29,7 +29,7 @@
     "email": "taz742b@gmail.com",
     "role": "MODERATOR",
     "isActive": true,
-    "disabled": true
+    "disabled": false
 },  {
     "id": 5,
     "name": "Tazo5",
@@ -37,7 +37,7 @@
     "email": "taz742b@gmail.com",
     "role": "MODERATOR",
     "isActive": true,
-    "disabled": true
+    "disabled": false
 },  {
     "id": 6,
     "name": "Tazo6",
@@ -53,5 +53,5 @@
     "email": "taz742b@gmail.com",
     "role": "MODERATOR",
     "isActive": true,
-    "disabled": true
+    "disabled": false
 }]

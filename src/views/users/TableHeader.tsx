@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IUser } from "../../contexts/users/interfaces";
+import { IUser } from "../../contexts/users/interfaces/interfaces";
 import {
   TableHead,
   TableRow,

@@ -15,7 +15,7 @@ import { TableHeader } from "./TableHeader";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import AddOrUpdateUser from "../../components/users/add-or-update-user";
 import useModal from "../../hooks/useModal";
-import { IUser } from "../../contexts/users/interfaces";
+import { IUser } from "../../contexts/users/interfaces/interfaces";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { capitalize } from "../../utils/helpers";
