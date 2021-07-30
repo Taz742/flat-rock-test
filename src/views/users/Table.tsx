@@ -86,6 +86,8 @@ export default function Users() {
               position: "absolute",
               top: 180,
               cursor: "pointer",
+              background: '#fff',
+              borderRadius: '50%'
             }}
             onClick={() => openModal()}
           />
