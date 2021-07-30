@@ -63,10 +63,10 @@ export const UsersProvider: FC = ({ children }) => {
       setUsers((users) =>
         users.filter(
           (user) =>
-            user.name.includes(str) ||
-            user.surname.includes(str) ||
-            user.email.includes(str) ||
-            user.role.includes(str)
+            user.name.toLowerCase().includes(str.toLowerCase()) ||
+            user.surname.toLowerCase().includes(str.toLowerCase()) ||
+            user.email.toLowerCase().includes(str.toLowerCase()) ||
+            user.role.toLowerCase().includes(str.toLowerCase())
         )
       );
     }
