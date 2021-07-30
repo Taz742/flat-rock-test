@@ -14,17 +14,7 @@ import SearchAppBar from "./AppBar";
 import Typography from "@material-ui/core/Typography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
-
-type Role = "ADMIN" | "USER" | "MODERATOR";
-
-interface Data {
-  name: string;
-  surname: string;
-  email: string;
-  role: Role;
-  isActive: boolean;
-  disabled?: boolean;
-}
+import { IUser, Role } from '../../contexts/users/interfaces';
 
 function createData(
   name: string,
@@ -33,7 +23,7 @@ function createData(
   role: Role,
   isActive: boolean,
   disabled: boolean
-): Data {
+): IUser {
   return {
     name,
     surname,
@@ -102,7 +92,7 @@ const headCells: readonly HeadCell[] = [
 interface EnhancedTableProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
-    property: keyof Data
+    property: keyof IUser
   ) => void;
   order: Order;
   orderBy: string;
@@ -112,7 +102,7 @@ interface EnhancedTableProps {
 function EnhancedTableHead(props: EnhancedTableProps) {
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler =
-    (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof IUser) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
