@@ -1,4 +1,4 @@
-import { Order } from "./TableHeader";
+import { Order } from "./interfaces";
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {

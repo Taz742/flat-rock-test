@@ -8,11 +8,7 @@ import {
   Box,
 } from "@material-ui/core";
 import { visuallyHidden } from "@material-ui/utils";
-
-type SortableColumns = Pick<IUser, "name" | "role" | "isActive">;
-export type SortKeys = keyof SortableColumns;
-
-export type Order = "asc" | "desc";
+import { SortKeys, Order } from './interfaces';
 
 interface HeadCell {
   id: SortKeys;
@@ -34,7 +30,7 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-interface EnhancedTableProps {
+interface IProps {
   onRequestSort: (
     event: React.MouseEvent<unknown>,
     property: keyof IUser
@@ -44,7 +40,7 @@ interface EnhancedTableProps {
   rowCount: number;
 }
 
-export function TableHeader(props: EnhancedTableProps) {
+export function TableHeader(props: IProps) {
   const { order, orderBy, onRequestSort } = props;
   const createSortHandler =
     (property: keyof IUser) => (event: React.MouseEvent<unknown>) => {
@@ -65,6 +61,9 @@ export function TableHeader(props: EnhancedTableProps) {
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
+              sx={{
+                marginLeft: headCell.id === "role" ? "35px !important" : undefined,
+              }}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
