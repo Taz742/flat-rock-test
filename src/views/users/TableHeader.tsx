@@ -74,6 +74,7 @@ export function TableHeader(props: IProps) {
             </TableSortLabel>
           </TableCell>
         ))}
+        <TableCell align="center">Details</TableCell>
         <TableCell align="right">Actions</TableCell>
       </TableRow>
     </TableHead>

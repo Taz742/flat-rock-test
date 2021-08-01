@@ -8,6 +8,7 @@ import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
 import Container from "@material-ui/core/Container";
 import useUsers from "../../hooks/useUsers";
+import { useLocation } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -33,7 +34,7 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  left: 'calc(100% - 50px)'
+  left: "calc(100% - 50px)",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -49,8 +50,9 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function SearchAppBar() {
+function SearchAppBar() {
   const { handleFilter } = useUsers();
+  const location = useLocation();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -78,24 +80,28 @@ export default function SearchAppBar() {
               sx={{
                 flexGrow: 1,
                 display: { xs: "none", sm: "block" },
-                marginLeft: '70px !important',
+                marginLeft: "70px !important",
               }}
             >
               Project Accesss
             </Typography>
-            <Search>
-              <SearchIconWrapper>
-                <SearchIcon />
-              </SearchIconWrapper>
-              <StyledInputBase
-                placeholder="Type to filter..."
-                inputProps={{ "aria-label": "search" }}
-                onChange={(e) => handleFilter(e.target.value)}
-              />
-            </Search>
+            {location.pathname === "/users" && (
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  placeholder="Type to filter..."
+                  inputProps={{ "aria-label": "search" }}
+                  onChange={(e) => handleFilter(e.target.value)}
+                />
+              </Search>
+            )}
           </Toolbar>
         </Container>
       </AppBar>
     </Box>
   );
 }
+
+export default React.memo(SearchAppBar);

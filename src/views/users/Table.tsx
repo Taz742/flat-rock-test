@@ -6,7 +6,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import { Container, Switch } from "@material-ui/core";
+import { Button, Container, Switch } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
@@ -19,10 +19,11 @@ import { IUser } from "../../contexts/users/interfaces";
 import SettingsIcon from "@material-ui/icons/Settings";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { capitalize } from "../../utils/helpers";
-import getComparator from './Comparator';
-import { Order, SortKeys } from './interfaces';
+import getComparator from "./Comparator";
+import { Order, SortKeys } from "./interfaces";
+import { Link } from "react-router-dom";
 
-export default function Users() {
+function Users() {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<SortKeys>("name");
   const [page, setPage] = React.useState(0);
@@ -135,6 +136,11 @@ export default function Users() {
                             }
                           />
                         </TableCell>
+                        <TableCell align="center">
+                          <Link to={`/users/${row.id}`}>
+                            <Button variant="contained">Details</Button>
+                          </Link>
+                        </TableCell>
                         <TableCell align="right">
                           <SettingsIcon
                             onClick={() => {
@@ -181,3 +187,5 @@ export default function Users() {
     </>
   );
 }
+
+export default React.memo(Users);

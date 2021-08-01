@@ -4,7 +4,7 @@ import { useMemo } from "react";
 import { IContext, IUser } from "./interfaces";
 import Users from "./users.json";
 
-let nextId = Users.length + 1;
+let nextId = Users.length;
 
 export const UsersContext = createContext<IContext>({
   users: [],

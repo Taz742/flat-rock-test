@@ -27,7 +27,7 @@ const FormInput: FC<IProps> = ({
       control={control}
       rules={validate}
       render={({ field }) => (
-        <TextField fullWidth {...field} label={label} error={error} />
+        <TextField fullWidth {...field} label={label} error={error ? true : false} />
       )}
     />
   );

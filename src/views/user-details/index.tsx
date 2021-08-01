@@ -1,13 +1,13 @@
 import * as React from "react";
 import { UsersProvider } from "../../contexts/users";
 import AppBar from "../../components/app-bar/AppBar";
-import Table from "./Table";
+import Details from './details';
 
-export default function Users() {
+export default function UserDetails() {
   return (
     <UsersProvider>
       <AppBar />
-      <Table />
+      <Details />
     </UsersProvider>
   );
 }
