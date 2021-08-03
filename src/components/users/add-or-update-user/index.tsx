@@ -17,6 +17,7 @@ import useUsers from "../../../hooks/useUsers";
 
 import FormInput from "../../form/form-input";
 import Stack from "@material-ui/core/Stack";
+import useUserPermissions from "../../../hooks/useUserPermissions";
 
 interface IFormInput {
   name: string;
@@ -35,6 +36,7 @@ export default function AddOrUpdateUser(props: IProps) {
   const { isOpen, user, onClose } = props;
 
   const { handleAddOrUpdateUser } = useUsers();
+  const permissions = useUserPermissions(user);
 
   const methods = useForm<IFormInput>({
     defaultValues: user || {
@@ -51,6 +53,8 @@ export default function AddOrUpdateUser(props: IProps) {
     });
     onClose();
   };
+
+  console.log(user);
 
   return (
     <div>
@@ -76,17 +80,32 @@ export default function AddOrUpdateUser(props: IProps) {
                   name="name"
                   label="Name"
                   validate={{ required: true }}
+                  readOnly={
+                    !permissions.nameAndSurnamePermissions.find(
+                      (permission) => permission.label === "Name"
+                    )?.enable
+                  }
                 />
                 <FormInput
                   name="surname"
                   label="Surname"
                   validate={{ required: true }}
+                  readOnly={
+                    !permissions.nameAndSurnamePermissions.find(
+                      (permission) => permission.label === "Surname"
+                    )?.enable
+                  }
                 />
                 <FormInput
                   type="email"
                   name="email"
                   label="Email"
                   validate={{ required: true, pattern: emailPattern }}
+                  readOnly={
+                    !permissions.emailPermissions.find(
+                      (permission) => permission.label === "Email"
+                    )?.enable
+                  }
                 />
                 <TextField
                   select
@@ -94,6 +113,9 @@ export default function AddOrUpdateUser(props: IProps) {
                   label="Choose Role"
                   id="role"
                   defaultValue="ADMIN"
+                  inputProps={{
+                    "aria-readonly": true,
+                  }}
                   onChange={(e: any) => {
                     setValue("role", e.target.value, true);
                   }}

@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useState, useCallback } from "react";
 
 const useModal = <T extends any>(
@@ -8,10 +9,10 @@ const useModal = <T extends any>(
   const [showSuccess, setSuccess] = useState(false);
   const [showProgress, setProgress] = useState(false);
   const [showError, setError] = useState(false);
-  const [item, setSelectedItem] = useState(initState);
+  const [item, setSelectedItem] = useState<any>(initState);
 
   const closeModal = useCallback(() => {
-    setSelectedItem({});
+    setSelectedItem(null);
     setOpen(false);
   }, [setOpen]);
 
@@ -26,7 +27,21 @@ const useModal = <T extends any>(
     [setSuccess, setProgress, setError, setOpen]
   );
 
-  return {
+  const state = useMemo(() => {
+    return {
+      isOpen,
+      showSuccess,
+      showProgress,
+      showError,
+      setSuccess,
+      setProgress,
+      setError,
+      closeModal,
+      openModal,
+      // @ts-ignore
+      item,
+    };
+  }, [
     isOpen,
     showSuccess,
     showProgress,
@@ -38,7 +53,9 @@ const useModal = <T extends any>(
     openModal,
     // @ts-ignore
     item,
-  };
+  ]);
+
+  return state;
 };
 
 interface IReturn<T> {

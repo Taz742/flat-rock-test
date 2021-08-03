@@ -7,6 +7,7 @@ export interface IProps {
   validate?: any;
   disabled?: boolean;
   label?: string;
+  readOnly?: boolean;
 }
 
 const FormInput: FC<IProps> = ({
@@ -14,6 +15,7 @@ const FormInput: FC<IProps> = ({
   disabled,
   validate,
   label,
+  readOnly,
   ...props
 }) => {
   const { control } = useFormContext();
@@ -27,7 +29,15 @@ const FormInput: FC<IProps> = ({
       control={control}
       rules={validate}
       render={({ field }) => (
-        <TextField fullWidth {...field} label={label} error={error ? true : false} />
+        <TextField
+          fullWidth
+          {...field}
+          label={label}
+          error={error ? true : false}
+          inputProps={{
+            readOnly,
+          }}
+        />
       )}
     />
   );

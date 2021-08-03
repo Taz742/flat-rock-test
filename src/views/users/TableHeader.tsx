@@ -42,6 +42,7 @@ interface IProps {
 
 export function TableHeader(props: IProps) {
   const { order, orderBy, onRequestSort } = props;
+  
   const createSortHandler =
     (property: keyof IUser) => (event: React.MouseEvent<unknown>) => {
       onRequestSort(event, property);
