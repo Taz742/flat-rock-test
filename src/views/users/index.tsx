@@ -5,9 +5,9 @@ import Table from "./Table";
 
 export default function Users() {
   return (
-    <UsersProvider>
+    <>
       <AppBar />
       <Table />
-    </UsersProvider>
+    </>
   );
 }

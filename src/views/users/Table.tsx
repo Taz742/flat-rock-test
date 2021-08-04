@@ -6,7 +6,13 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import { Button, Container, Switch } from "@material-ui/core";
+import {
+  Button,
+  Container,
+  MenuItem,
+  Switch,
+  TextField,
+} from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
@@ -29,7 +35,7 @@ function Users() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-  const { users, handleDelete, handleActiveStatusChange } = useUsers();
+  const { users, activeUser, handleChangeActiveUser, handleDelete, handleActiveStatusChange } = useUsers();
 
   const { isOpen, item, openModal, closeModal } = useModal<IUser | null>();
 
@@ -73,6 +79,20 @@ function Users() {
             }}
             onClick={() => openModal()}
           />
+          <TextField
+            select
+            fullWidth
+            label="Choose Current User"
+            id="choose-user"
+            value={activeUser.id}
+            onChange={(e: any) => handleChangeActiveUser(e.target.value)}
+          >
+            {users.map((user) => (
+              <MenuItem key={user.name} value={user.id}>
+                {`${user.name} ${user.surname}`}
+              </MenuItem>
+            ))}
+          </TextField>
           {isOpen && (
             <AddOrUpdateUser isOpen={isOpen} user={item} onClose={closeModal} />
           )}

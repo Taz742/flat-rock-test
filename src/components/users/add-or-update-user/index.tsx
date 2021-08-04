@@ -35,8 +35,8 @@ interface IProps {
 export default function AddOrUpdateUser(props: IProps) {
   const { isOpen, user, onClose } = props;
 
-  const { handleAddOrUpdateUser } = useUsers();
-  const permissions = useUserPermissions(user);
+  const { activeUser, handleAddOrUpdateUser } = useUsers();
+  const permissions = useUserPermissions(activeUser);
 
   const methods = useForm<IFormInput>({
     defaultValues: user || {
@@ -53,8 +53,6 @@ export default function AddOrUpdateUser(props: IProps) {
     });
     onClose();
   };
-
-  console.log(user);
 
   return (
     <div>
@@ -113,9 +111,6 @@ export default function AddOrUpdateUser(props: IProps) {
                   label="Choose Role"
                   id="role"
                   defaultValue="ADMIN"
-                  inputProps={{
-                    "aria-readonly": true,
-                  }}
                   onChange={(e: any) => {
                     setValue("role", e.target.value, true);
                   }}

@@ -15,6 +15,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import useUserPermissions from "../../hooks/useUserPermissions";
+import { IUser } from "../../contexts/users/interfaces";
 
 function Details() {
   const [expanded, setExpanded] = React.useState<string | false>("panel1");
@@ -23,7 +24,7 @@ function Details() {
   const { users, handleChangePermission } = useUsers();
 
   const user = useMemo(() => {
-    return users.find((user) => user.id === Number(id)) || users[0];
+    return users.find((user) => user.id === Number(id)) as Required<IUser>;
   }, [users, id]);
 
   const { nameAndSurnamePermissions, emailPermissions, rolePermissions } =
@@ -85,9 +86,13 @@ function Details() {
                 <Typography>{`Name & Surname`}</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {nameAndSurnamePermissions.map((permission) => {
+                {nameAndSurnamePermissions.map((permission, key) => {
                   return (
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      key={key}
+                    >
                       <Typography>{permission.label}</Typography>
                       <Switch
                         disabled={user.disabled}
@@ -118,9 +123,13 @@ function Details() {
                 <Typography>{`Email`}</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {emailPermissions.map((permission) => {
+                {emailPermissions.map((permission, key) => {
                   return (
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      key={key}
+                    >
                       <Typography>{permission.label}</Typography>
                       <Switch
                         disabled={user.disabled}
@@ -151,9 +160,13 @@ function Details() {
                 <Typography>{`Role`}</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {rolePermissions.map((permission) => {
+                {rolePermissions.map((permission, key) => {
                   return (
-                    <Box display="flex" justifyContent="space-between">
+                    <Box
+                      display="flex"
+                      justifyContent="space-between"
+                      key={key}
+                    >
                       <Typography>{permission.label}</Typography>
                       <Switch
                         disabled={user.disabled}

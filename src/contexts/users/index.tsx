@@ -1,7 +1,52 @@
 import React, { createContext, FC, useState } from "react";
+import { useEffect } from "react";
 import { useCallback } from "react";
 import { useMemo } from "react";
-import { IContext, IPermission, IUser, Role } from "./interfaces";
+import {
+  IContext,
+  IPermission,
+  IPermissionGroup,
+  IUser,
+  Role,
+} from "./interfaces";
+
+const permissions: IPermissionGroup[] = [
+  {
+    name: "NAME_SURNAME",
+    permissions: [
+      {
+        groupId: "NAME_SURNAME",
+        label: "Name",
+        enable: true,
+      },
+      {
+        groupId: "NAME_SURNAME",
+        label: "Surname",
+        enable: true,
+      },
+    ],
+  },
+  {
+    name: "EMAIL",
+    permissions: [
+      {
+        groupId: "EMAIL",
+        label: "Email",
+        enable: true,
+      },
+    ],
+  },
+  {
+    name: "ROLE",
+    permissions: [
+      {
+        groupId: "ROLE",
+        label: "Role",
+        enable: true,
+      },
+    ],
+  },
+];
 
 let nextId = 0;
 
@@ -23,43 +68,7 @@ function createUser(
     isActive,
     disabled,
     superUser,
-    permissions: [
-      {
-        name: "NAME_SURNAME",
-        permissions: [
-          {
-            groupId: "NAME_SURNAME",
-            label: "Name",
-            enable: true,
-          },
-          {
-            groupId: "NAME_SURNAME",
-            label: "Surname",
-            enable: true,
-          },
-        ],
-      },
-      {
-        name: "EMAIL",
-        permissions: [
-          {
-            groupId: "EMAIL",
-            label: "Email",
-            enable: true,
-          },
-        ],
-      },
-      {
-        name: "ROLE",
-        permissions: [
-          {
-            groupId: "ROLE",
-            label: "Role",
-            enable: true,
-          },
-        ],
-      },
-    ],
+    permissions: [...permissions],
   };
 }
 
@@ -140,15 +149,18 @@ const Users: IUser[] = [
 
 export const UsersContext = createContext<IContext>({
   users: [],
+  activeUser: {} as IUser,
   handleActiveStatusChange: (id, isActive) => {},
   handleAddOrUpdateUser: (user) => {},
   handleFilter: (str) => {},
   handleDelete: (id) => {},
   handleChangePermission: (user, permission, enable) => {},
+  handleChangeActiveUser: (id) => {},
 });
 
 export const UsersProvider: FC = ({ children }) => {
   const [users, setUsers] = useState<IUser[]>(Users as IUser[]);
+  const [activeUser, setActiveUser] = useState<IUser>(users[0]);
 
   const handleActiveStatusChange = useCallback(
     (id: number, isActive: boolean) => {
@@ -183,7 +195,15 @@ export const UsersProvider: FC = ({ children }) => {
       );
     } else {
       setUsers((users) => [
-        { ...user, isActive: true, disabled: false, id: ++nextId },
+        createUser(
+          user.name,
+          user.surname,
+          user.email,
+          user.role,
+          true,
+          false,
+          false
+        ),
         ...users,
       ]);
     }
@@ -211,9 +231,9 @@ export const UsersProvider: FC = ({ children }) => {
 
   const handleChangePermission = useCallback(
     (user: IUser, permission: IPermission, enable: boolean) => {
-      setUsers((users) =>
-        users.map((_user) => {
-          if (_user.id !== user.id) return user;
+      setUsers((_users) =>
+        _users.map((_user) => {
+          if (_user.id !== user.id) return _user;
 
           const newPermissions = _user.permissions.map((permissionGroup) => {
             if (permissionGroup.name !== permission.groupId)
@@ -221,18 +241,24 @@ export const UsersProvider: FC = ({ children }) => {
 
             const permissions = permissionGroup.permissions;
 
-            const foundPermission = permissions.find(
-              (_permission) => _permission.label === permission.label
-            ) as Required<IPermission>;
+            const updatedPermissions = permissions.map((per) =>
+              per.label === permission.label
+                ? {
+                    ...per,
+                    enable: enable,
+                  }
+                : per
+            );
 
-            foundPermission.enable = enable;
-
-            return { ...permissionGroup, permissions: permissions };
+            return {
+              ...permissionGroup,
+              permissions: updatedPermissions,
+            };
           });
 
           return {
-            ...user,
-            permissions: newPermissions
+            ..._user,
+            permissions: newPermissions,
           };
         })
       );
@@ -240,22 +266,33 @@ export const UsersProvider: FC = ({ children }) => {
     []
   );
 
+  const handleChangeActiveUser = useCallback(
+    (id: number) => {
+      setActiveUser(users.find((user) => user.id == id) as Required<IUser>);
+    },
+    [users]
+  );
+
   const value = useMemo(
     () => ({
       users,
+      activeUser,
       handleActiveStatusChange,
       handleAddOrUpdateUser,
       handleFilter,
       handleDelete,
       handleChangePermission,
+      handleChangeActiveUser,
     }),
     [
       users,
+      activeUser,
       handleActiveStatusChange,
       handleAddOrUpdateUser,
       handleFilter,
       handleDelete,
       handleChangePermission,
+      handleChangeActiveUser,
     ]
   );
 

@@ -26,9 +26,11 @@ export interface IUser {
 
 export interface IContext {
   users: IUser[];
+  activeUser: IUser;
   handleActiveStatusChange: (id: number, isActive: boolean) => void;
   handleAddOrUpdateUser: (user: IUser) => void;
   handleFilter: (str: string) => void;
   handleDelete: (id: number) => void;
   handleChangePermission: (user: IUser, permission: IPermission, enable: boolean) => void;
+  handleChangeActiveUser: (id: number) => void;
 }
